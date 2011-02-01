@@ -1,0 +1,6 @@
+Changelog for ActivationEmail.
+
+ActivationEmail 1.0.0
+ - First Revolution release
+
+

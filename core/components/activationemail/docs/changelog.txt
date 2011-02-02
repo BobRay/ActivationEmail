@@ -1,5 +1,9 @@
 Changelog for ActivationEmail.
 
+Version 1.0.1
+-------------
+ - Fixed bug with package install
+
 ActivationEmail 1.0.0
  - First Revolution release
 

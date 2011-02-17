@@ -29,6 +29,7 @@
  * (optionally) deactivation.
   *
  * @package activationemail
+ * @version 1.0.2
  *
  * Properties:
  *
@@ -45,6 +46,8 @@
  * @property sitename (string) site name to use in message; defaults
  *     to site_name System Setting
  * @property useFullname (boolean) - Use full name in msg instead of username.
+ * @property replyToAddress (string) - reply-to address for emails;
+ *     defaults to emailsender system settting.
  *
  * Placeholders:
  *    [[+username]]
@@ -66,6 +69,9 @@ $sendActivation = $modx->getOption('sendOnActivation',$scriptProperties,true) ? 
 $sendDeactivation = $modx->getOption('sendOnDeactivation',$scriptProperties,false) ? true : false;
 $activationEmailTpl = $modx->getOption('activationEmailTpl',$scriptProperties,'ActivationEmailTpl');
 $deactivationEmailTpl = $modx->getOption('deactivationEmailTpl,$scriptProperties','DeactivationEmailTpl');
+$emailSender = $modx->getOption('emailsender');
+$replyTo = $modx->getOption('replyToAddress');
+$replyTo = empty($replyTo) ? $emailSender : $replyTo;
 
 /* If you hard-code these in the email templates, the settings of
  * these properties be ignored. Otherwise, the system settings will
@@ -126,15 +132,16 @@ if ($sendDeactivation && (empty($after) && $before)) {
 }
 
 if ($send ) {
+
         $modx->logManagerAction($eventName,'modUser',$user->get('id'));
         $modx->getService('mail', 'mail.modPHPMailer');
         $modx->mail->set(modMail::MAIL_BODY, $msg);
-        $modx->mail->set(modMail::MAIL_FROM, $modx->getOption('emailsender'));
+        $modx->mail->set(modMail::MAIL_FROM, $emailSender);
         $modx->mail->set(modMail::MAIL_FROM_NAME, $modx->getOption('site_name'));
-        $modx->mail->set(modMail::MAIL_SENDER, $modx->getOption('emailsender'));
+        $modx->mail->set(modMail::MAIL_SENDER, $emailSender);
         $modx->mail->set(modMail::MAIL_SUBJECT, $subject);
         $modx->mail->address('to', $email, $name);
-        $modx->mail->address('no-reply-to','');
+        $modx->mail->address('reply-to',$replyTo);
         $modx->mail->setHTML(true);
         $sent = $modx->mail->send();
         $modx->mail->reset();

@@ -1,5 +1,9 @@
 Changelog for ActivationEmail.
 
+Version 1.0.2
+-------------
+ - Fixed bug with reply-to address
+
 Version 1.0.1
 -------------
  - Fixed bug with package install

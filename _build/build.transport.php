@@ -32,7 +32,7 @@
 /* Set package info */
 define('PKG_NAME','ActivationEmail');
 define('PKG_NAME_LOWER','activationemail');
-define('PKG_VERSION','1.0.1');
+define('PKG_VERSION','1.0.2');
 define('PKG_RELEASE','beta1');
 define('PKG_CATEGORY','ActivationEmail');
 

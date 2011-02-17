@@ -75,6 +75,14 @@ $properties = array(
         'value' => false,
         'lexicon' => 'activationemail:properties',
     ),
+    array(
+        'name' => 'replyToAddress',
+        'desc' => 'ae_replyToAddress_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => false,
+        'lexicon' => 'activationemail:properties',
+    ),
 );
 
 return $properties;

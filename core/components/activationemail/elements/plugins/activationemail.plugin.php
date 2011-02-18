@@ -68,7 +68,7 @@ if ($mode != modSystemEvent::MODE_UPD ) {
 $sendActivation = $modx->getOption('sendOnActivation',$scriptProperties,true) ? true : false;
 $sendDeactivation = $modx->getOption('sendOnDeactivation',$scriptProperties,false) ? true : false;
 $activationEmailTpl = $modx->getOption('activationEmailTpl',$scriptProperties,'ActivationEmailTpl');
-$deactivationEmailTpl = $modx->getOption('deactivationEmailTpl,$scriptProperties','DeactivationEmailTpl');
+$deactivationEmailTpl = $modx->getOption('deactivationEmailTpl',$scriptProperties,'DeactivationEmailTpl');
 $emailSender = $modx->getOption('emailsender');
 $replyTo = $modx->getOption('replyToAddress');
 $replyTo = empty($replyTo) ? $emailSender : $replyTo;
@@ -84,8 +84,6 @@ $activeURL = $modx->getOption('activationURL', $scriptProperties,null);
 $activeURL = empty($activeURL)? $modx->getOption('site_url') : $activeURL ;
 $deActiveURL = $modx->getOption('deactivationURL', $scriptProperties,null);
 $deActiveURL = empty($deActiveURL)? $modx->getOption('site_url') : $deActiveURL ;
-
-
 
 
 $profile = $user->getOne('Profile');
@@ -126,9 +124,11 @@ if ($sendDeactivation && (empty($after) && $before)) {
     $subject = 'Status Changed to Inactive';
     $send = true;
     $eventName = 'deactivate_user';
-    $msg = "<p>Dear " . $name . ',</p>
+    if (empty($msg)) {
+        $msg = "<p>Dear " . $name . ',</p>
         <p>Your status at ' .  $siteName . ' has been changed to "inactive." '. 'If you believe this is an error please contact the site administrator at <a href="' . $deActiveURL  .'">' . $deActiveURL . '</a>.</p>';
     $msg .= "<p>Kind Regards, <br />Site Administrator</p>";
+    }
 }
 
 if ($send ) {

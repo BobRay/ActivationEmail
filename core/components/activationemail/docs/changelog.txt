@@ -1,5 +1,10 @@
 Changelog for ActivationEmail.
 
+Version 1.0.3
+-------------
+ - Fixed bug with deactivation Tpl
+ - Corrected minor typos
+
 Version 1.0.2
 -------------
  - Fixed bug with reply-to address

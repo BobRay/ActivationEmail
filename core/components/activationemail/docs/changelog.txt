@@ -1,5 +1,22 @@
 Changelog for ActivationEmail.
 
+Version 1.0.4
+-------------
+ - added activeSender property
+ - added activeFrom property
+ - added activeFromName property
+ - added activeReplyTo property
+ - added activeSubject property
+
+ - added deActiveSender property
+ - added deActiveFrom property
+ - added deActiveFromName property
+ - added deActiveReplyTo property
+ - added deActiveSubject property
+
+
+
+
 Version 1.0.3
 -------------
  - Fixed bug with deactivation Tpl

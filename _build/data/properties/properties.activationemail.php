@@ -83,6 +83,93 @@ $properties = array(
         'value' => false,
         'lexicon' => 'activationemail:properties',
     ),
+    array(
+        'name' => 'activeSubject',
+        'desc' => 'ae_activeSubject_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '',
+        'lexicon' => 'activationemail:properties',
+    ),
+    array(
+        'name' => 'activeSender',
+        'desc' => 'ae_activeSender_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '',
+        'lexicon' => 'activationemail:properties',
+    ),
+    array(
+        'name' => 'activeFrom',
+        'desc' => 'ae_activeFrom_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '',
+        'lexicon' => 'activationemail:properties',
+    ),
+    array(
+        'name' => 'activeFromName',
+        'desc' => 'ae_activeFromName_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '',
+        'lexicon' => 'activationemail:properties',
+    ),
+    array(
+        'name' => 'activeReplyTo',
+        'desc' => 'ae_activeReplyTo_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '',
+        'lexicon' => 'activationemail:properties',
+    ),
+    array(
+        'name' => 'deActiveSubject',
+        'desc' => 'ae_deActiveSubject_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '',
+        'lexicon' => 'activationemail:properties',
+    ),
+    array(
+        'name' => 'deActiveSender',
+        'desc' => 'ae_deActiveSender_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '',
+        'lexicon' => 'activationemail:properties',
+    ),
+    array(
+        'name' => 'deActiveFrom',
+        'desc' => 'ae_deActiveFrom_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '',
+        'lexicon' => 'activationemail:properties',
+    ),
+    array(
+        'name' => 'deActiveFromName',
+        'desc' => 'ae_deActiveFromName_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '',
+        'lexicon' => 'activationemail:properties',
+    ),
+    array(
+        'name' => 'deActiveReplyTo',
+        'desc' => 'ae_deActiveReplyTo_desc',
+        'type' => 'textfield',
+        'options' => '',
+        'value' => '',
+        'lexicon' => 'activationemail:properties',
+    ),
+     
+ 
+  
+ 
+ 
+
+  
 );
 
 return $properties;

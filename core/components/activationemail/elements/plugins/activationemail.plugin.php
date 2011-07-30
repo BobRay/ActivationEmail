@@ -29,7 +29,7 @@
  * (optionally) deactivation.
   *
  * @package activationemail
- * @version 1.0.3
+ * @version 1.0.4
  *
  * Properties:
  *
@@ -47,7 +47,28 @@
  *     to site_name System Setting
  * @property useFullname (boolean) - Use full name in msg instead of username.
  * @property replyToAddress (string) - reply-to address for emails;
- *     defaults to emailsender system settting.
+ *     defaults to emailsender system setting.
+ * @property activeSubject (string) - subject for activation emails;
+ *     defaults to "Registration Approved".
+ * @property activeSender(string) - Email Sender for activation emails;
+ *     defaults to emailsender system setting.
+ * @property activeFrom (string) - Email From for activation emails;
+ *     defaults to emailsender system setting.
+ * @property activeFromName(string) - Email From Name for activation emails;
+ *     defaults to site_name system setting.
+ * @property activeReplyTo(string) - Email Reply To for activation emails;
+ *     defaults to emailsender system setting.
+ *
+ * @property deActiveSubject (string) - subject for deactivation emails;
+ *     defaults to "Status Changed to Inactive".
+ * @property deActiveSender(string) - Email Sender for deactivation emails;
+ *     defaults to emailsender system setting.
+ * @property deActiveFrom (string) - Email From for deactivation emails;
+ *     defaults to emailsender system setting.
+ * @property deActiveFromName(string) - Email From Name for deactivation emails;
+ *     defaults to site_name system setting.
+ * @property deActiveReplyTo(string) - Email Reply To for deactivation emails;
+ *     defaults to emailsender system setting.
  *
  * Placeholders:
  *    [[+username]]
@@ -69,9 +90,16 @@ $sendActivation = $modx->getOption('sendOnActivation',$scriptProperties,true) ? 
 $sendDeactivation = $modx->getOption('sendOnDeactivation',$scriptProperties,false) ? true : false;
 $activationEmailTpl = $modx->getOption('activationEmailTpl',$scriptProperties,'ActivationEmailTpl');
 $deactivationEmailTpl = $modx->getOption('deactivationEmailTpl',$scriptProperties,'DeactivationEmailTpl');
+
+/* get the system setting */
 $emailSender = $modx->getOption('emailsender');
-$replyTo = $modx->getOption('replyToAddress');
+
+/* This won't be used if activeReplyTo or deActiveReplyTo are set */ 
+$replyTo = $modx->getOption('replyToAddress',$scriptProperties, null);
 $replyTo = empty($replyTo) ? $emailSender : $replyTo;
+
+/* This won't be used if activeFromName or deActiveFromName are set */
+$fromName = empty($scriptProperties['fromName']) ? $modx->getOption('site_name'): $scriptProperties['fromName'];
 
 /* If you hard-code these in the email templates, the settings of
  * these properties be ignored. Otherwise, the system settings will
@@ -84,7 +112,6 @@ $activeURL = $modx->getOption('activationURL', $scriptProperties,null);
 $activeURL = empty($activeURL)? $modx->getOption('site_url') : $activeURL ;
 $deActiveURL = $modx->getOption('deactivationURL', $scriptProperties,null);
 $deActiveURL = empty($deActiveURL)? $modx->getOption('site_url') : $deActiveURL ;
-
 
 $profile = $user->getOne('Profile');
 $email = $profile->get('email');
@@ -106,42 +133,54 @@ $send = false;
 
 if ($sendActivation && (empty($before) && $after)) {
     /* activation */
-    $msg = $modx->getChunk($activationEmailTpl,$fields);
-    $subject = 'Registration Approved';
+    $_sender = empty($scriptProperties['activeSender'])? $emailSender : $scriptProperties['activeSender'];
+    $_reply = empty($scriptProperties['activeReplyTo'])? $replyTo : $scriptProperties['activeReplyTo'];
+    $_from = empty($scriptProperties['activeFrom'])? $emailSender : $scriptProperties['activeFrom'];
+    $_fromName = empty($scriptProperties['activeFromName'])? $fromName : $scriptProperties['activeFromName'];
+    
+    $subject = $modx->getOption('activeSubject', $scriptProperties,null);
+    $_subject = empty($subject)? 'Registration Approved' : $subject ;
+    $_msg = $modx->getChunk($activationEmailTpl,$fields);
     $send = true;
     $eventName = 'activate_user';
-    if (empty($msg)) {
-        $msg = "<p>Dear " . $name . ",</p>
+    if (empty($_msg)) {
+        $_msg = "<p>Dear " . $name . ",</p>
         <p>Thank you for registering at " . $siteName . '.</p>
         <p>Your registration has been approved and you may now access the Members area, please login <a href="' . $activeURL . '">here</a>.</p>';
-        $msg .= "<p>Kind Regards, <br />Site Administrator</p>";
+        $_msg .= "<p>Kind Regards, <br />Site Administrator</p>";
     }
 }
 
 if ($sendDeactivation && (empty($after) && $before)) {
     /* deactivation */
-    $msg = $modx->getChunk($deactivationEmailTpl,$fields);
-    $subject = 'Status Changed to Inactive';
+    $_sender = empty($scriptProperties['deActiveSender'])? $emailSender : $scriptProperties['deActiveSender'];
+    $_reply = empty($scriptProperties['deActiveReplyTo'])? $replyTo : $scriptProperties['deActiveReplyTo'];
+    $from = empty($scriptProperties['deActiveFrom'])? $emailSender : $scriptProperties['deActiveFrom'];
+    $_fromName = empty($scriptProperties['deActiveFromName'])? $fromName : $scriptProperties['deActiveFromName'];
+    
+    $subject = $modx->getOption('deActiveSubject', $scriptProperties,null);
+    $_subject = empty($subject)? 'Status Changed to Inactive' : $subject ;
+    $_msg = $modx->getChunk($deactivationEmailTpl,$fields);
     $send = true;
     $eventName = 'deactivate_user';
-    if (empty($msg)) {
-        $msg = "<p>Dear " . $name . ',</p>
+    if (empty($_msg)) {
+        $_msg = "<p>Dear " . $name . ',</p>
         <p>Your status at ' .  $siteName . ' has been changed to "inactive." '. 'If you believe this is an error please contact the site administrator at <a href="' . $deActiveURL  .'">' . $deActiveURL . '</a>.</p>';
-    $msg .= "<p>Kind Regards, <br />Site Administrator</p>";
+    $_msg .= "<p>Kind Regards, <br />Site Administrator</p>";
     }
 }
 
 if ($send ) {
-
+        
         $modx->logManagerAction($eventName,'modUser',$user->get('id'));
         $modx->getService('mail', 'mail.modPHPMailer');
-        $modx->mail->set(modMail::MAIL_BODY, $msg);
-        $modx->mail->set(modMail::MAIL_FROM, $emailSender);
-        $modx->mail->set(modMail::MAIL_FROM_NAME, $modx->getOption('site_name'));
-        $modx->mail->set(modMail::MAIL_SENDER, $emailSender);
-        $modx->mail->set(modMail::MAIL_SUBJECT, $subject);
+        $modx->mail->set(modMail::MAIL_BODY, $_msg);
+        $modx->mail->set(modMail::MAIL_FROM, $_from);
+        $modx->mail->set(modMail::MAIL_FROM_NAME, $_fromName);
+        $modx->mail->set(modMail::MAIL_SENDER, $_sender);
+        $modx->mail->set(modMail::MAIL_SUBJECT, $_subject);
         $modx->mail->address('to', $email, $name);
-        $modx->mail->address('reply-to',$replyTo);
+        $modx->mail->address('reply-to',$_reply);
         $modx->mail->setHTML(true);
         $sent = $modx->mail->send();
         $modx->mail->reset();

@@ -14,6 +14,8 @@ Version 1.0.4
  - added deActiveReplyTo property
  - added deActiveSubject property
 
+ - added fromName placeholder
+
 
 
 

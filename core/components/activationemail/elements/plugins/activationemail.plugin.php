@@ -75,6 +75,7 @@
  *    [[+sitename]]
  *    [[+activationURL]]
  *    [[+deactivationURL]]
+ *    [[+fromName]]
  *
  */
 
@@ -137,6 +138,7 @@ if ($sendActivation && (empty($before) && $after)) {
     $_reply = empty($scriptProperties['activeReplyTo'])? $replyTo : $scriptProperties['activeReplyTo'];
     $_from = empty($scriptProperties['activeFrom'])? $emailSender : $scriptProperties['activeFrom'];
     $_fromName = empty($scriptProperties['activeFromName'])? $fromName : $scriptProperties['activeFromName'];
+    $fields['fromName'] = $_fromName;
     
     $subject = $modx->getOption('activeSubject', $scriptProperties,null);
     $_subject = empty($subject)? 'Registration Approved' : $subject ;
@@ -157,6 +159,7 @@ if ($sendDeactivation && (empty($after) && $before)) {
     $_reply = empty($scriptProperties['deActiveReplyTo'])? $replyTo : $scriptProperties['deActiveReplyTo'];
     $from = empty($scriptProperties['deActiveFrom'])? $emailSender : $scriptProperties['deActiveFrom'];
     $_fromName = empty($scriptProperties['deActiveFromName'])? $fromName : $scriptProperties['deActiveFromName'];
+    $fields['fromName'] = $_fromName;
     
     $subject = $modx->getOption('deActiveSubject', $scriptProperties,null);
     $_subject = empty($subject)? 'Status Changed to Inactive' : $subject ;

@@ -163,13 +163,7 @@ $properties = array(
         'value' => '',
         'lexicon' => 'activationemail:properties',
     ),
-     
- 
-  
- 
- 
 
-  
 );
 
 return $properties;

@@ -32,8 +32,8 @@
 /* Set package info */
 define('PKG_NAME','ActivationEmail');
 define('PKG_NAME_LOWER','activationemail');
-define('PKG_VERSION','1.0.4');
-define('PKG_RELEASE','rc1');
+define('PKG_VERSION','1.1.0');
+define('PKG_RELEASE','pl');
 define('PKG_CATEGORY','ActivationEmail');
 
 /* Set package options - you can turn these on one-by-one

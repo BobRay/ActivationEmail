@@ -18,7 +18,7 @@
         href="https://github.com/BobRay/ActivationEmail/issues">here</a>.
 </p>
 <p>Ask any questions about using this plugin <a
-        href="modxcms.com/forums">here</a>.</p>
+        href="forums.modx.com">here</a>.</p>
 <h3>Installation</h3>
 <ul>
     <li>Go to System | Package Management</li>
@@ -135,7 +135,7 @@
     Be sure to edit the two duplicate Tpl chunks, not the ones that
     were
     installed with the Activation Email package.
-    Be sure to include the [<!-- -->[<!-- -->+username]<!-- -->]
+    Be sure to include the <fixedpre>[[+username]]</fixedpre>
     placeholder so the user will be
     addressed by name.</p>
 
@@ -146,10 +146,10 @@
     renamed the Tpl chunks, your changes will
     survive any upgrades.
 
-<p>Note that the [<!-- -->[<!-- -->+username]<!-- -->] placeholder
+<p>Note that the <fixedpre>[[+username]]</fixedpre> placeholder
     should
     not change, even if you use the &amp;useFullname property. You may also use the optional
-    [<!-- -->[<!-- -->+fromName]<!-- -->] placeholder if you have set that property.</p>
+    <fixedpre>[[+fromName]]</fixedpre> placeholder if you have set that property.</p>
 
 <h3>Properties</h3>
 
@@ -259,3 +259,5 @@
         <td>emailsender System Setting</td>
     </tr>
 </table>        
+
+<p>&nbsp;</p>

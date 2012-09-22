@@ -33,7 +33,7 @@
  *
  * Properties:
  *
- * @property sendOnActivation (boolean) - Sset to '1' to send the activation email; default '1'
+ * @property sendOnActivation (boolean) - Set to '1' to send the activation email; default '1'
  * @property sendOnDeactivation (boolean) - Set to '1' to send the deactivation email; default '0'
  * @property activationEmailTpl (string) - Tpl chunk for activation email;
  *     default: ActivationEmailTpl
@@ -81,10 +81,8 @@
 
 /* Connect to OnUserBeforeSave (Note: *not* OnBeforeUserFormSave) */
 
-/* return dirname(__FILE__); */
-
-if ($mode != modSystemEvent::MODE_UPD ) {
-    return;
+if ($mode != modSystemEvent::MODE_UPD || ! is_object($modx) || !empty($modx->xpdo->config[xPDO::OPT_SETUP])) {
+    return '';
 }
 
 $sendActivation = $modx->getOption('sendOnActivation',$scriptProperties,true) ? true : false;

@@ -1,5 +1,9 @@
 Changelog for ActivationEmail.
 
+Version 1.1.2
+-------------
+Update for MODX 2.3
+
 Version 1.1.1
 -------------
 Fixed critical bug with Setup

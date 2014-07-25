@@ -2,7 +2,7 @@
 /**
  * ActivationEmail Build Script
  *
- * Copyright 2011 Bob Ray <http://bobsguides.com>
+ * Copyright 2011-2014 Bob Ray <http://bobsguides.com>
  *
  * ActivationEmail is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -32,7 +32,7 @@
 /* Set package info */
 define('PKG_NAME','ActivationEmail');
 define('PKG_NAME_LOWER','activationemail');
-define('PKG_VERSION','1.1.1');
+define('PKG_VERSION','1.1.2');
 define('PKG_RELEASE','pl');
 define('PKG_CATEGORY','ActivationEmail');
 

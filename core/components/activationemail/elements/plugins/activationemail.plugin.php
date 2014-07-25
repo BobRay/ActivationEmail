@@ -200,3 +200,4 @@ if ($send ) {
         $modx->mail->reset();
  }
 
+return '';

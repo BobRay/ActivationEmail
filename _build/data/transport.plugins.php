@@ -36,7 +36,7 @@ if (! function_exists('getPluginContent')) {
     }
 }
 $plugins = array();
-
+/** @var $modx modX */
 $plugins[1]= $modx->newObject('modplugin');
 $plugins[1]->fromArray(array(
     'id' => 1,

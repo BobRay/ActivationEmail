@@ -2,7 +2,7 @@
 /**
  * ActivationEmail
  *
- * Copyright 2011 Bob Ray
+ * Copyright 2011-2014 Bob Ray
  *
  * @author Bob Ray
  * 1/30/11
@@ -29,7 +29,7 @@
  * (optionally) deactivation.
   *
  * @package activationemail
- * @version 1.0.4
+ *
  *
  * Properties:
  *
@@ -80,41 +80,46 @@
  */
 
 /* Connect to OnUserBeforeSave (Note: *not* OnBeforeUserFormSave) */
-
+/** @var $scriptProperties array */
+/** @var $modx modX $sp */
+/** @var $modx->$xpdo xPDO */
+$sp = $scriptProperties;
 if ($mode != modSystemEvent::MODE_UPD || ! is_object($modx) || !empty($modx->xpdo->config[xPDO::OPT_SETUP])) {
     return '';
 }
 
-$sendActivation = $modx->getOption('sendOnActivation',$scriptProperties,true) ? true : false;
-$sendDeactivation = $modx->getOption('sendOnDeactivation',$scriptProperties,false) ? true : false;
-$activationEmailTpl = $modx->getOption('activationEmailTpl',$scriptProperties,'ActivationEmailTpl');
-$deactivationEmailTpl = $modx->getOption('deactivationEmailTpl',$scriptProperties,'DeactivationEmailTpl');
+$sendActivation = $modx->getOption('sendOnActivation',$sp,true) ? true : false;
+$sendDeactivation = $modx->getOption('sendOnDeactivation',$sp,false) ? true : false;
+$activationEmailTpl = $modx->getOption('activationEmailTpl',$sp,'ActivationEmailTpl');
+$deactivationEmailTpl = $modx->getOption('deactivationEmailTpl',$sp,'DeactivationEmailTpl');
 
 /* get the system setting */
 $emailSender = $modx->getOption('emailsender');
 
-/* This won't be used if activeReplyTo or deActiveReplyTo are set */ 
-$replyTo = $modx->getOption('replyToAddress',$scriptProperties, null);
+/* This won't be used if activeReplyTo or deActiveReplyTo are set */
+$replyTo = $modx->getOption('replyToAddress',$sp, null);
 $replyTo = empty($replyTo) ? $emailSender : $replyTo;
 
 /* This won't be used if activeFromName or deActiveFromName are set */
-$fromName = empty($scriptProperties['fromName']) ? $modx->getOption('site_name'): $scriptProperties['fromName'];
+$fromName = $modx->getOption('fromName', $sp, null);
+$fromName = empty($fromName) ? $modx->getOption('site_name'): $fromName;
 
 /* If you hard-code these in the email templates, the settings of
  * these properties be ignored. Otherwise, the system settings will
  *  be used unless the properties are set.
  */
 
-$siteName = $modx->getOption('sitename',$scriptProperties);
+$siteName = $modx->getOption('sitename',$sp);
 $siteName = empty($siteName)? $modx->getOption('site_name') : $siteName;
-$activeURL = $modx->getOption('activationURL', $scriptProperties,null);
+$activeURL = $modx->getOption('activationURL', $sp,null);
 $activeURL = empty($activeURL)? $modx->getOption('site_url') : $activeURL ;
-$deActiveURL = $modx->getOption('deactivationURL', $scriptProperties,null);
+$deActiveURL = $modx->getOption('deactivationURL', $sp,null);
 $deActiveURL = empty($deActiveURL)? $modx->getOption('site_url') : $deActiveURL ;
 
 $profile = $user->getOne('Profile');
 $email = $profile->get('email');
-$name = $scriptProperties['useFullname'] ? $profile->get('fullname') : $user->get('username');
+$useFullName = $modx->getOption('useFullName', $sp, false);
+$name = $useFullname ? $profile->get('fullname') : $user->get('username');
 $id = $user->get('id');
 $dbUser = $modx->getObject('modUser',$id);
 $before = $dbUser->get('active');
@@ -132,13 +137,17 @@ $send = false;
 
 if ($sendActivation && (empty($before) && $after)) {
     /* activation */
-    $_sender = empty($scriptProperties['activeSender'])? $emailSender : $scriptProperties['activeSender'];
-    $_reply = empty($scriptProperties['activeReplyTo'])? $replyTo : $scriptProperties['activeReplyTo'];
-    $_from = empty($scriptProperties['activeFrom'])? $emailSender : $scriptProperties['activeFrom'];
-    $_fromName = empty($scriptProperties['activeFromName'])? $fromName : $scriptProperties['activeFromName'];
+    $_sender = $modx->getOption('activeSender', $sp, null);
+    $_sender = empty($sender)? $emailSender : $sender;
+    $_reply = $modx->getOption('activeReplyTo', $sp, null);
+    $_reply = empty($_reply)? $replyTo : $_reply;
+    $_from = $modx->getOption('activeFrom', $sp, null);
+    $_from = empty($_from)? $emailSender : $_from;
+    $_fromName = $modx->getOption('activeFromName', $sp, null);
+    $_fromName = empty($_fromName)? $fromName : $_fromName;
     $fields['fromName'] = $_fromName;
-    
-    $subject = $modx->getOption('activeSubject', $scriptProperties,null);
+
+    $subject = $modx->getOption('activeSubject', $sp,null);
     $_subject = empty($subject)? 'Registration Approved' : $subject ;
     $_msg = $modx->getChunk($activationEmailTpl,$fields);
     $send = true;
@@ -153,13 +162,17 @@ if ($sendActivation && (empty($before) && $after)) {
 
 if ($sendDeactivation && (empty($after) && $before)) {
     /* deactivation */
-    $_sender = empty($scriptProperties['deActiveSender'])? $emailSender : $scriptProperties['deActiveSender'];
-    $_reply = empty($scriptProperties['deActiveReplyTo'])? $replyTo : $scriptProperties['deActiveReplyTo'];
-    $from = empty($scriptProperties['deActiveFrom'])? $emailSender : $scriptProperties['deActiveFrom'];
-    $_fromName = empty($scriptProperties['deActiveFromName'])? $fromName : $scriptProperties['deActiveFromName'];
+    $_sender = $modx->getOption('deActiveSender', $sp, null);
+    $_sender = empty($_sender)? $emailSender : $_sender;
+    $_reply = $modx->getOption('deActiveReplyTo', $sp, null);
+    $_reply = empty($_reply)? $replyTo : $_reply;
+    $from = $modx->getOption('deActiveFrom', $sp, null);
+    $from = empty($from)? $emailSender : $from;
+    $_fromName = $modx->getOption('deActiveFromName', $sp, null);
+    $_fromName = empty($_fromName)? $fromName : $_fromName;
     $fields['fromName'] = $_fromName;
-    
-    $subject = $modx->getOption('deActiveSubject', $scriptProperties,null);
+
+    $subject = $modx->getOption('deActiveSubject', $sp,null);
     $_subject = empty($subject)? 'Status Changed to Inactive' : $subject ;
     $_msg = $modx->getChunk($deactivationEmailTpl,$fields);
     $send = true;
@@ -172,7 +185,7 @@ if ($sendDeactivation && (empty($after) && $before)) {
 }
 
 if ($send ) {
-        
+
         $modx->logManagerAction($eventName,'modUser',$user->get('id'));
         $modx->getService('mail', 'mail.modPHPMailer');
         $modx->mail->set(modMail::MAIL_BODY, $_msg);
@@ -186,3 +199,4 @@ if ($send ) {
         $sent = $modx->mail->send();
         $modx->mail->reset();
  }
+

@@ -125,7 +125,10 @@ $dbUser = $modx->getObject('modUser',$id);
 $before = $dbUser->get('active');
 $after = $user->get('active');
 
+$fullName = $profile->get('fullname');
+
 $fields = array(
+    'fullname' => $fullName,
     'username' => $name,
     'sitename' => $siteName,
     'activationURL' => $activeURL,
@@ -138,7 +141,7 @@ $send = false;
 if ($sendActivation && (empty($before) && $after)) {
     /* activation */
     $_sender = $modx->getOption('activeSender', $sp, null);
-    $_sender = empty($sender)? $emailSender : $sender;
+    $_sender = empty($_sender)? $emailSender : $_sender;
     $_reply = $modx->getOption('activeReplyTo', $sp, null);
     $_reply = empty($_reply)? $replyTo : $_reply;
     $_from = $modx->getOption('activeFrom', $sp, null);

@@ -1,18 +1,11 @@
-<p>This plugin for MODx Revolution sends an email message to users
-    when
-    they are activated manually in the MODx Manager and (optionally)
-    a second message to deactivated users.</p>
+<p>This plugin for MODx Revolution sends an email message to users when they are activated manually in the MODx Manager and (optionally) a second message to deactivated users.</p>
 <h3>Features</h3>
 
 <ul>
-    <li>Emails to both activated and deactivated users can be turned
-        on and of with properties</li>
-    <li>Both messages are in Tpl chunks that can be modified to meet
-        your needs
-    <li>The messages can be personalized to include the username or
-        full name, the site name, and a URL link</li>
-    <li>The Site Name and an included URL link can be customized with
-        properties.</li>
+    <li>Emails to both activated and deactivated users can be turned on and off with properties</li>
+    <li>Both messages are in Tpl chunks that can be modified to meet your needs</li>
+    <li>The messages can be personalized to include the username or full name, the site name, and a URL link</li>
+    <li>The Site Name and an included URL link can be customized with properties.</li>
 </ul>
 <p>Report bugs and suggestions <a
         href="https://github.com/BobRay/ActivationEmail/issues">here</a>.
@@ -23,144 +16,82 @@
 <ul>
     <li>Go to System | Package Management</li>
     <li>Click on the &quot;Download Extras&quot; button</li>
-    <li>Type &quot;ActivationEmail&quot; in the search box and press
-        Enter.</li>
-    <li>Click on the download button next to the Activation Email
-        package</li>
+    <li>Type &quot;ActivationEmail&quot; in the search box and press Enter.</li>
+    <li>Click on the download button next to the Activation Email package</li>
     <li>Wait until the download button changes to &quot;downloaded&quot;</li>
     <li>Click on the &quot;Finish&quot;, button</li>
     <li>You should see the ActivationEmail package in the grid</li>
-    <li>Click on the &quot;install&quot; button next to the
-        package</li>
+    <li>Click on the &quot;install&quot; button next to the package</li>
     <li>Click on &quot;OK&quot; to close the console</li>
-    <li>Check to make sure that the plugin and the two chunks were
-        installed</li>
+    <li>Check to make sure that the plugin and the two chunks were installed</li>
 </ul>
 
 <h3>Checking the Install</h3>
-<p>The first thing to do is to make sure the plugin is installed
-    properly. Create a new user with your email address. Activate and
-    deactivate the user a few times and see if you get an email
-    message. If you don't, make sure your email system is working by
-    downloading and installing the QuickEmail snippet.</p>
+<p>The first thing to do is to make sure the plugin is installed properly. Create a new user with your email address. Activate and deactivate the user a few times and see if you get an email message. If you don't, make sure your email system is working by downloading and installing the QuickEmail snippet.</p>
 
-<p>The deactivation email is off by default so you won't get it unless
-    you change the sendOnDeactivation property of the plugin to True.
-    If you won't be using that feature, don't bother.</p>
+<p>The deactivation email is off by default so you won't get it unless you change the sendOnDeactivation property of the plugin to True. If you won't be using that feature, don't bother.</p>
 
-<p>Once the email is arriving. The odds are that you will want to
-    modify one or both of the Tpl chunks containing the message forms
-    (if not, you're done -- sit back and relax). In order to keep the
-    Tpl chunks from being overwritten by upgrades, duplicate and
-    rename them.
+<p>Once the email is arriving. The odds are that you will want to modify one or both of the Tpl chunks containing the message forms (if not, you're done -- sit back and relax). In order to keep the Tpl chunks from being overwritten by upgrades, duplicate and rename them.
 <h3>Duplicating and Renaming the Chunks</h3>
 <ul>
     <li>On the left side of the screen, click on the Elements tab</li>
-    <li>Right-click on the ActivationEmailTpl chunk in the chunk
-        section of the Elements tree and select "Duplicate Chunk"</li>
+    <li>Right-click on the ActivationEmailTpl chunk in the chunk section of the Elements tree and select "Duplicate Chunk"</li>
     <li>Call the new chunk &quot;MyActivationEmailTpl&quot;</li>
-    <li>If you will be sending a deactivation email, do the same thing
-        for the DeactivationEmailTpl</li>
+    <li>If you will be sending a deactivation email, do the same thing for the DeactivationEmailTpl</li>
     <li>Don't change the content of the new chunk(s) yet</li>
 </ul>
 <h3>Creating the Property Set</h3>
 
-<p>Like the Tpl chunk(s), you don't want the properties to be
-    overwritten during an upgrade, so you should create a property set
-    for your own settings.</p>
+<p>Like the Tpl chunk(s), you don't want the properties to be overwritten during an upgrade, so you should create a property set for your own settings.</p>
 <ul>
-    <li>Edit the plugin and click on the &quot;Properties&quot;
-        tab</li>
+    <li>Edit the plugin and click on the &quot;Properties&quot; tab</li>
     <li>Click on the &quot;Add Property Set&quot; button</li>
     <li>Check the &quot;Crete New Property Set&quot; checkbox</li>
-    <li>Use the name MyActivationEmailProperties; add a description if
-        you like</li>
+    <li>Use the name MyActivationEmailProperties; add a description if you like</li>
     <li>Highlight the name and save it to the clipboard</li>
     <li>Click on the &quot;Save&quot; button</li>
-    <li>In the &quot;Value&quot; column, double-click on
-        ActivationEmailTpl (or right-click and update it)</li>
-    <li>Paste in the name from the clipboard (or type in
-        MyActivationEmailTpl)</li>
-    <li>Do the same for the DeactivationEmailTpl if you'll be using
-        that</li>
-    <li>Important: Click on the &quot;Save Property Set&quot; button
-    </li>
+    <li>In the &quot;Value&quot; column, double-click on ActivationEmailTpl (or right-click and update it)</li>
+    <li>Paste in the name from the clipboard (or type in MyActivationEmailTpl)</li>
+    <li>Do the same for the DeactivationEmailTpl if you'll be using that</li>
+    <li>Important: Click on the &quot;Save Property Set&quot; button</li>
 
 </ul>
 <h3>Connecting the Property Set</h3>
 
-<p>Now we need to tell MODx to use our own property set with the
-    plugin</p>
+<p>Now we need to tell MODx to use our own property set with the plugin</p>
 <ul>
     <li>Still editing the plugin, click on the System Events tab</li>
-    <li>Scroll down to the OnUserBeforeSave event (note: Not
-        OnBeforeUserFormSave)</li>
+    <li>Scroll down to the OnUserBeforeSave event (note: *Not* OnBeforeUserFormSave)</li>
     <li> You may have to look on multiple pages to find it</li>
     <li>Make sure it has the checkbox checked</li>
     <li>Double-click in the Property Set column (column 4)</li>
-    <li>Using the drop-down list, select the
-        MyActivationEmailProperties set</li>
-    <li>Important: Click on the &quot;Save&quot; button to save the
-        plugin</li>
+    <li>Using the drop-down list, select the MyActivationEmailProperties set</li>
+    <li>Important: Click on the &quot;Save&quot; button to save the plugin</li>
 </ul>
 
 <h3>Retesting and Configuring</h3>
 
-<p>Activate and deactivate your user a few times. Make sure the emails
-    are still arriving
-    and that the messages are correct.<p>
+<p>Activate and deactivate your user a few times. Make sure the emails are still arriving and that the messages are correct.<p>
 
-<p>Edit the plugin and click on the &quot;Properties&quot; tab. Make
-    sure you are editing
-    your own property set, not the default properties, by selecting
-    MyActivationEmailProperties
-    in the drop-down list at the upper left of the grid. You can see
-    what each property does
-    by clicking on the little plus sign next to it in the grid. Set
-    the properties to meet your
-    needs. Be sure not to edit anything
-    except the &quot;Value&quot; column.</p>
+<p>Edit the plugin and click on the &quot;Properties&quot; tab. Make sure you are editing your own property set, not the default properties, by selecting MyActivationEmailProperties in the drop-down list at the upper left of the grid. You can see what each property does by clicking on the little plus sign next to it in the grid. Set the properties to meet your needs. Be sure not to edit anything except the &quot;Value&quot; column.</p>
 
-<p>When you're finished click on the &quot;Save Property
-    Set&quot; button. Notice that any properties you change show
-    up in green once you save the set. That shows that they have
-    different values than the default properties</p>
+<p>When you're finished click on the &quot;Save Property Set&quot; button. Notice that any properties you change show up in green once you save the set. That shows that they have different values than the default properties</p>
 
 <p>You may have to clear the site cache to before your changes take
     effect.</p>
 
 <h3>Customizing the Tpl Chunks</h3>
 
-<p>The two Tpl chunks can be completely rewritten to meet your needs.
-    Be sure to edit the two duplicate Tpl chunks, not the ones that
-    were
-    installed with the Activation Email package.
-    Be sure to include the <fixedpre>[[+username]]</fixedpre>
-    placeholder so the user will be
-    addressed by name.</p>
+<p>The two Tpl chunks can be completely rewritten to meet your needs. Be sure to edit the two duplicate Tpl chunks, not the ones that
+    were installed with the Activation Email package. Be sure to include the <fixedpre>[[+username]]</fixedpre> placeholder so the user will be addressed by name.</p>
 
-<p> The other placeholders are optional. All will
-    be set to appropriate system settings,
-    but you can set their values in the property set you created. You
-    can also modify them or remove them if you wish. Since you've
-    renamed the Tpl chunks, your changes will
-    survive any upgrades.
+<p> The other placeholders are optional. All will be set to appropriate system settings, but you can set their values in the property set you created. You can also modify them or remove them if you wish. Since you've renamed the Tpl chunks, your changes will survive any upgrades.
 
-<p>Note that the <fixedpre>[[+username]]</fixedpre> placeholder
-    should
-    not change, even if you use the &amp;useFullname property. You may also use the optional
-    <fixedpre>[[+fromName]]</fixedpre> placeholder if you have set that property.</p>
+<p>Note that the <fixedpre>[[+username]]</fixedpre> placeholder should not change, even if you use the &amp;useFullname property. You may also use the optional <fixedpre>[[+fromName]]</fixedpre> placeholder if you have set that property.</p>
 
 <h3>Properties</h3>
 
-<p>The following properties control the behavior
-    of the ActivationEmail plugin. If you need to alter any of them
-    be sure to create a property set and specify it on the System
-    Events
-    tab as described above. When changing the property values,
-    always be sure that you're modifying your property set and
-    not the default properties. The default properties are locked
-    to remind you to do so.</p>
+<p>The following properties control the behavior of the ActivationEmail plugin. If you need to alter any of them be sure to create a property set and specify it on the System Events tab as described above. When changing the property values, always be sure that you're modifying your property set and not the default properties. The default properties are locked to remind you to do so.</p>
 
 <table class="properties">
     <tr>

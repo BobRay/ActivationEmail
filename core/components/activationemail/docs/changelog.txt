@@ -1,12 +1,18 @@
 Changelog for ActivationEmail.
 
+Version 1.1.3
+--------------
+ - Add fullname to placeholders
+ - Fix bug with activeSender being ignored
+
+
 Version 1.1.2
 -------------
-Update for MODX 2.3
+ - Update for MODX 2.3
 
 Version 1.1.1
 -------------
-Fixed critical bug with Setup
+ - Fixed critical bug with Setup
 
 Version 1.1.0
 -------------

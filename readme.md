@@ -6,7 +6,7 @@ ActivationEmail Plugin for MODx Revolution
 
 **Documentation:** [Tutorial](http://bobsguides.com/activationemail-plugin-tutorial.html)
 
-**Bugs and Requests:** [GitHub](https://github.com/Bob Ray/ActivationEmail/issues)
+**Bugs and Requests:** [GitHub](https://github.com/BobRay/ActivationEmail/issues)
 
 **Questions About Using the Plugin** [MODx Forums](http://modxcms.com/forums)
 

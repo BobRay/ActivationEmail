@@ -1,14 +1,14 @@
-ActivationEmail Plugin for MODx Revolution
+ActivationEmail Plugin for MODX Revolution
 =======================================
 
-**Revolution Author:** Bob Ray [Bob's Guides](http://bobsguides.com)
+**Author:** Bob Ray [Bob's Guides](https://bobsguides.com)
 **Date:**   02/01/2011
 
-**Documentation:** [Tutorial](http://bobsguides.com/activationemail-plugin-tutorial.html)
+**Documentation:** [ActivationEmail Docs](https://bobsguides.com/activationemail-plugin-tutorial.html)
 
-**Bugs and Requests:** [GitHub](https://github.com/BobRay/ActivationEmail/issues)
+**Bugs and requests:** [ActivationEmail Issues](https://github.com/BobRay/ActivationEmail/issues)
 
-**Questions About Using the Plugin** [MODx Forums](http://modxcms.com/forums)
+**Questions about using ActivationEmail** [MODX Forums](https://forums.modx.com)
 
-A plugin for MODx Revolution that sends and email to users when they are
+A plugin for MODX Revolution that sends and email to users when they are
 activated manually in the Manager and (optionally) when they are deactivated.

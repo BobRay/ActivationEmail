@@ -2,7 +2,7 @@
 /**
  * ActivationEmail Build Script
  *
- * Copyright 2011-2014 Bob Ray <http://bobsguides.com>
+ * Copyright 2011-2014 Bob Ray <https://bobsguides.com>
  *
  * ActivationEmail is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -91,7 +91,7 @@ $sources= array (
 );
 unset($root);
 
-/* instantiate MODx -- if this require fails, check your
+/* instantiate MODX -- if this require fails, check your
  *_build/build.config.php file
  */
 require_once $sources['build'].'build.config.php';

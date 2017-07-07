@@ -23,7 +23,7 @@
  * @package activationemail
  */
 /**
- * MODx ActivationEmail Snippet
+ * MODX ActivationEmail Snippet
  *
  * Description Sends an email to users on manual activation and
  * (optionally) deactivation.

@@ -2,7 +2,7 @@
 /**
  * ActivationEmail Build Script
  *
- * Copyright 2011-2014 Bob Ray <https://bobsguides.com>
+ * Copyright 2011-2017 Bob Ray <https://bobsguides.com>
  *
  * ActivationEmail is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free

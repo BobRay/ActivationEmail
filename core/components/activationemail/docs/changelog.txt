@@ -2,9 +2,9 @@ Changelog for ActivationEmail.
 
 Version 1.1.4
 -------------
-Update Copyrights and links
-Update readme.md
-Fix typos in docs
+ - Update Copyrights and links
+ - Update readme.md
+ - Fix typos in docs
 
 Version 1.1.3
 --------------

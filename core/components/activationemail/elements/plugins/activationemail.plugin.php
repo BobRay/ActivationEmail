@@ -91,9 +91,7 @@
 // $modx->log(modX::LOG_LEVEL_ERROR, "[ActivationEmail] - in plugin");
 
 $sp = $scriptProperties;
-/*if ($mode != modSystemEvent::MODE_UPD || ! is_object($modx) || !empty($modx->xpdo->config[xPDO::OPT_SETUP])) {
-    return '';
-}*/
+
 $eventName = $modx->event->name;
 $sendActivation = $modx->getOption('sendOnActivation', $sp, true);
 $sendDeactivation = $modx->getOption('sendOnDeactivation', $sp, false);
@@ -122,10 +120,6 @@ $profile = $user->getOne('Profile');
 $email = $profile->get('email');
 $useFullName = $modx->getOption('useFullName', $sp, false);
 $name = $useFullName ? $profile->get('fullname') : $user->get('username');
-/* $id = $user->get('id');
-$dbUser = $modx->getObject('modUser',$id);
-$before = $dbUser->get('active');
-$after = $user->get('active');*/
 
 $fullName = $profile->get('fullname');
 $send = false;
@@ -209,58 +203,6 @@ $fields = array(
         'deactivationURL' => $deActiveURL,
 );
 
-
-if (false) {
-    if ($sendActivation && ($eventName == 'OnUserActivate')) {
-        /* activation */
-        $_sender = $modx->getOption('activeSender', $sp, null, true);
-        $_sender = empty($_sender) ? $emailSender : $_sender;
-        $_reply = $modx->getOption('activeReplyTo', $sp, null, true);
-        $_reply = empty($_reply) ? $replyTo : $_reply;
-        $_from = $modx->getOption('activeFrom', $sp, null, true);
-        $_from = empty($_from) ? $emailSender : $_from;
-        $_fromName = $modx->getOption('activeFromName', $sp, null, true);
-        $_fromName = empty($_fromName) ? $fromName : $_fromName;
-        $fields['fromName'] = $_fromName;
-
-        $subject = $modx->getOption('activeSubject', $sp, null, true);
-        $_subject = empty($subject) ? 'Registration Approved' : $subject;
-        $_msg = $modx->getChunk($activationEmailTpl, $fields);
-        $send = true;
-        if (empty($_msg)) {
-            $_msg = "<p>Dear " . $name . ",</p>
-        <p>Thank you for registering at " . $siteName . '.</p>
-        <p>Your registration has been approved and you may now access the Members area, please login <a href="' . $activeURL . '">here</a>.</p>';
-            $_msg .= "<p>Kind Regards, <br />Site Administrator</p>";
-        }
-    }
-}
-
-if (false) {
-    if ($sendDeactivation && ($eventName == 'OnUserDeactivate')) {
-        /* deactivation */
-        $_sender = $modx->getOption('deActiveSender', $sp, null, true);
-        $_sender = empty($_sender) ? $emailSender : $_sender;
-        $_reply = $modx->getOption('deActiveReplyTo', $sp, null, true);
-        $_reply = empty($_reply) ? $replyTo : $_reply;
-        $from = $modx->getOption('deActiveFrom', $sp, null, true);
-        $from = empty($from) ? $emailSender : $from;
-        $_fromName = $modx->getOption('deActiveFromName', $sp, null, true);
-        $_fromName = empty($_fromName) ? $fromName : $_fromName;
-        $fields['fromName'] = $_fromName;
-
-        $subject = $modx->getOption('deActiveSubject', $sp, null, true);
-        $_subject = empty($subject) ? 'Status Changed to Inactive' : $subject;
-        $_msg = $modx->getChunk($deactivationEmailTpl, $fields);
-        $send = true;
-
-        if (empty($_msg)) {
-            $_msg = "<p>Dear " . $name . ',</p>
-        <p>Your status at ' . $siteName . ' has been changed to "inactive." ' . 'If you believe this is an error please contact the site administrator at <a href="' . $deActiveURL . '">' . $deActiveURL . '</a>.</p>';
-            $_msg .= "<p>Kind Regards, <br />Site Administrator</p>";
-        }
-    }
-}
 if ($send) {
 
     $modx->logManagerAction($eventName, 'modUser', $user->get('id'));

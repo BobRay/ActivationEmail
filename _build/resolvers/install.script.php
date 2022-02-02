@@ -3,7 +3,7 @@
 /**
  * ActivationEmail resolver script - runs on install.
  *
- * Copyright 2011-2019 Bob Ray <https://bobsguides.com>
+ * Copyright 2011-2022 Bob Ray <https://bobsguides.com>
  * @author Bob Ray <https://bobsguides.com>
  * 2/1/11
  *

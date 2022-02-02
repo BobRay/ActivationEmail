@@ -1,5 +1,13 @@
 Changelog for ActivationEmail.
 
+Version 1.2.0
+-------------
+
+ - Mods for MODX 3
+ - Attach plugin to OnUserActivate and OnUserDeactivate
+ - Remove connection to non-existent event: OnUserBeforeSave
+ - Correct critical typos in default message Tpl chunks
+
 Version 1.1.4
 -------------
  - Update Copyrights and links

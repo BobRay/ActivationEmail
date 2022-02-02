@@ -2,7 +2,8 @@ ActivationEmail Plugin for MODX Revolution
 =======================================
 
 **Author:** Bob Ray [Bob's Guides](https://bobsguides.com)
-**Date:**   02/01/2011
+**DateCreated:**   02/01/2011
+**Updated:** 1/03/2022  
 
 **Documentation:** [ActivationEmail Docs](https://bobsguides.com/activationemail-plugin-tutorial.html)
 

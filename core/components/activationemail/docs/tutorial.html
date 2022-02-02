@@ -7,19 +7,30 @@
     <li>The messages can be personalized to include the username or full name, the site name, and a URL link</li>
     <li>The Site Name and an included URL link can be customized with properties.</li>
 </ul>
+
+<div class="box">
+    <h3>Update Notes</h3>
+
+    <p>The MODX event this plugin was connected to no longer exists. It hasn't worked for some time, but no one filed an issue. The upgrade changes the connection to two more reliable events. ActivationEmail now works in both MODX 2 and MODX 3. Two critical typos in the default message Tpl chunks have been fixed.</p>
+
+    <p>Important: If you have modified any of the properties of the snippet, make sure you have created a property set as described below, or your changes won't survive the upgrade. You may need to re-attach your property set to the plugin after the upgrade.</p>
+
+    <p>Due to a recently discovered bug in MODX, the properties cache is not cleared when you save the plugin, so if you decide to change any of the plugin properties now or in the future, be sure to clear the cache in the Manager so your changes will take effect.</p>
+</div>
+
 <p>Report bugs and suggestions <a
         href="https://github.com/BobRay/ActivationEmail/issues">here</a>.
 </p>
 <p>Ask any questions about using this plugin <a
-        href="forums.modx.com">here</a>.</p>
+        href="https://community.modx.com">here</a>.</p>
 <h3>Installation</h3>
 <ul>
-    <li>Go to System | Package Management</li>
+    <li>Go to Extras | Installer</li>
     <li>Click on the &quot;Download Extras&quot; button</li>
     <li>Type &quot;ActivationEmail&quot; in the search box and press Enter.</li>
     <li>Click on the download button next to the Activation Email package</li>
-    <li>Wait until the download button changes to &quot;downloaded&quot;</li>
-    <li>Click on the &quot;Finish&quot;, button</li>
+    <li>Wait until the download finishes</li>
+    <li>Click on the &quot;Back to Package Manager&quot;, button</li>
     <li>You should see the ActivationEmail package in the grid</li>
     <li>Click on the &quot;install&quot; button next to the package</li>
     <li>Click on &quot;OK&quot; to close the console</li>
@@ -29,7 +40,7 @@
 <h3>Checking the Install</h3>
 <p>The first thing to do is to make sure the plugin is installed properly. Create a new user with your email address. Activate and deactivate the user a few times and see if you get an email message. If you don't, make sure your email system is working by downloading and installing the QuickEmail snippet.</p>
 
-<p>The deactivation email is off by default so you won't get it unless you change the sendOnDeactivation property of the plugin to True. If you won't be using that feature, don't bother.</p>
+<p>The deactivation email is off by default, so you won't get it unless you change the sendOnDeactivation property of the plugin to True. If you won't be using that feature, don't bother Be sure the clear the cache in the Manager after making the change.</p>
 
 <p>Once the email is arriving. The odds are that you will want to modify one or both of the Tpl chunks containing the message forms (if not, you're done -- sit back and relax). In order to keep the Tpl chunks from being overwritten by upgrades, duplicate and rename them.
 <h3>Duplicating and Renaming the Chunks</h3>
@@ -46,7 +57,7 @@
 <ul>
     <li>Edit the plugin and click on the &quot;Properties&quot; tab</li>
     <li>Click on the &quot;Add Property Set&quot; button</li>
-    <li>Check the &quot;Crete New Property Set&quot; checkbox</li>
+    <li>Check the &quot;Create New Property Set&quot; checkbox</li>
     <li>Use the name MyActivationEmailProperties; add a description if you like</li>
     <li>Highlight the name and save it to the clipboard</li>
     <li>Click on the &quot;Save&quot; button</li>
@@ -61,12 +72,13 @@
 <p>Now we need to tell MODX to use our own property set with the plugin</p>
 <ul>
     <li>Still editing the plugin, click on the System Events tab</li>
-    <li>Scroll down to the OnUserBeforeSave event (note: *Not* OnBeforeUserFormSave)</li>
+    <li>Scroll down to the &quot;OnUserActivate&quot; event (note: *Not* OnBeforeUserFormSave)</li>
     <li> You may have to look on multiple pages to find it</li>
     <li>Make sure it has the checkbox checked</li>
     <li>Double-click in the Property Set column (column 4)</li>
     <li>Using the drop-down list, select the MyActivationEmailProperties set</li>
     <li>Important: Click on the &quot;Save&quot; button to save the plugin</li>
+    <li>Do the same for the &quot;OnUserDeactivate&quot; event.</li>
 </ul>
 
 <h3>Retesting and Configuring</h3>
@@ -100,92 +112,92 @@
         <th>Default</th>
     </tr>
     <tr>
-        <td>&amp;sendOnActivation</td>
+        <td>sendOnActivation</td>
         <td>Send activation email</td>
         <td>`1`</td>
     </tr>
     <tr>
-        <td>&amp;sendOnDeactivation</td>
+        <td>sendOnDeactivation</td>
         <td>Send deactivation email</td>
         <td>`0`</td>
     </tr>
     <tr>
-        <td>&amp;activationEmailTpl</td>
+        <td>activationEmailTpl</td>
         <td>Tpl chunk for activation email</td>
         <td>`ActivationEmailTpl`</td>
     </tr>
     <tr>
-        <td>&amp;deactivationEmailTpl</td>
+        <td>deactivationEmailTpl</td>
         <td>Tpl chunk for deactivation email</td>
         <td>`DeactivationEmailTpl`</td>
     </tr>
     <tr>
-        <td>&amp;activationURL</td>
+        <td>activationURL</td>
         <td>URL to send activated users to</td>
         <td>site_url System Setting</td>
     </tr>
     <tr>
-        <td>&amp;deactivationURL</td>
+        <td>deactivationURL</td>
         <td>URL to send deactivated users to</td>
         <td>site_url System Setting</td>
     </tr>
     <tr>
-        <td>&amp;sitename</td>
+        <td>sitename</td>
         <td>site name to use in message</td>
         <td>site_name System Setting</td>
     </tr>
     <tr>
-        <td>&amp;useFullname</td>
+        <td>useFullname</td>
         <td>Use full name in msg instead of username</td>
         <td>`0`</td>
     </tr>
     <tr>
-        <td>&amp;activeSubject</td>
+        <td>activeSubject</td>
         <td>Subject for activation email messages</td>
         <td>Registration Approved</td>
     </tr>
     <tr>
-        <td>&amp;activeSender</td>
+        <td>activeSender</td>
         <td>Email Sender for activation email messages</td>
         <td>emailsender System Setting</td>
     </tr>
     <tr>
-        <td>&amp;activeFrom</td>
+        <td>activeFrom</td>
         <td>Email From address for activation email messages</td>
         <td>emailsender System Setting</td>
     </tr>
     <tr>
-        <td>&amp;activeFromName</td>
+        <td>activeFromName</td>
         <td>Email From Name for activation email messages</td>
         <td>site_name System Setting</td>
     </tr>
     <tr>
-        <td>&amp;activeReplyTo</td>
+        <td>activeReplyTo</td>
         <td>Reply To address for activation email messages</td>
         <td>emailsender System Setting</td>
     </tr>
     <tr>
-        <td>&amp;deActiveSubject</td>
+        <td>deActiveSubject</td>
         <td>Subject for deactivation email messages</td>
         <td>Status Changed to Inactive</td>
     </tr>
     <tr>
-        <td>&amp;deActiveSender</td>
+        <td>deActiveSender</td>
         <td>Email Sender for deactivation email messages</td>
         <td>emailsender System Setting</td>
     </tr>
     <tr>
-        <td>&amp;deActiveFrom</td>
+        <td>deActiveFrom</td>
         <td>Email From address for deactivation email messages</td>
         <td>emailsender System Setting</td>
     </tr>
     <tr>
-        <td>&amp;deActiveFromName</td>
+        <td>deActiveFromName</td>
         <td>Email From Name for deactivation email messages</td>
         <td>site_name System Setting</td>
     </tr>
     <tr>
-        <td>&amp;deActiveReplyTo</td>
+        <td>deActiveReplyTo</td>
         <td>Reply To address for deactivation email messages</td>
         <td>emailsender System Setting</td>
     </tr>

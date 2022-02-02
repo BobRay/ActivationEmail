@@ -28,48 +28,63 @@
  * @subpackage build
  */
 
-/* Example Resolver script */
+/** @var  $object */
+/** @var  $options array */
+
 $hasPlugins = true;
 $hasTemplates = true;
 $category = 'ActivationEmail';
 
+$prefix = $object->xpdo->getVersionData()['version'] >= 3? 'MODX\Revolution\\' : '';
+
 $success = true;
+if ($object->xpdo) {
+  $modx =& $object->xpdo;
+}
+
 $object->xpdo->log(xPDO::LOG_LEVEL_INFO,'Running PHP Resolver.');
 switch($options[xPDOTransport::PACKAGE_ACTION]) {
     /* This code will execute during an install */
     case xPDOTransport::ACTION_INSTALL:
+    case xPDOTransport::ACTION_UPGRADE:
         /* Assign plugins to System events */
-        if ($hasPlugins) {
-            $pluginObj = $object->xpdo->getObject('modPlugin',array('name'=>'ActivationEmail'));
-            $events[0] = 'OnUserBeforeSave';
-            if (! $pluginObj) $object->xpdo->log(xPDO::LOG_LEVEL_INFO,'cannot get object: MyPlugin1');
-            if (empty($events)) $object->xpdo->log(xPDO::LOG_LEVEL_INFO,'Cannot get System Events');
-            if (!empty($events) && $pluginObj) {
-                $object->xpdo->log(xPDO::LOG_LEVEL_INFO,'Assigning Events to Plugins');
 
-                foreach($events as $event => $eventName) {
-                    $intersect = $object->xpdo->newObject('modPluginEvent');
-                    $intersect->set('event',$eventName);
-                    $intersect->set('pluginid',$pluginObj->get('id'));
+        $pluginObj = $object->xpdo->getObject($prefix . 'modPlugin',array('name'=>'ActivationEmail'));
+        $events[0] = 'OnUserActivate';
+        $events[1] = 'OnUserDeactivate';
+        if (! $pluginObj) {
+            $object->xpdo->log(xPDO::LOG_LEVEL_INFO, 'cannot get object: MyPlugin1');
+        }
+
+        if (!empty($events) && $pluginObj) {
+            $object->xpdo->log(xPDO::LOG_LEVEL_INFO,'Assigning Events to Plugins');
+
+            foreach($events as $event => $eventName) {
+                $pluginEvent = $object->xpdo->getObject($prefix . 'modPluginEvent', array('event' => $eventName));
+                if (! $pluginEvent) {
+                    $intersect = $object->xpdo->newObject($prefix . 'modPluginEvent');
+                    $intersect->set('event', $eventName);
+                    $intersect->set('pluginid', $pluginObj->get('id'));
                     $intersect->save();
                 }
             }
         }
-        break;
 
-    /* This code will execute during an upgrade */
-    case xPDOTransport::ACTION_UPGRADE:
-
-        /* put any upgrade tasks (if any) here such as removing
-           obsolete files, settings, elements, resources, etc.
-        */
-
+        /* Remove old PluginEvent */
+        $pluginEvent = $object->xpdo->getObject($prefix . 'modPluginEvent', array('event' => 'OnUserBeforeSave'));
+        if ($pluginEvent) {
+            $pluginEvent->remove();
+        }
         $success = true;
         break;
 
     /* This code will execute during an uninstall */
     case xPDOTransport::ACTION_UNINSTALL:
         $object->xpdo->log(xPDO::LOG_LEVEL_INFO,'Uninstalling . . .');
+        $pluginEvent = $object->xpdo->getObject($prefix . 'modPluginEvent', array('event' => 'OnUserBeforeSave'));
+        if ($pluginEvent) {
+            $pluginEvent->remove();
+        }
         $success = true;
         break;
 
